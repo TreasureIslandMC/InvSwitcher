@@ -51,6 +51,10 @@ public class Store {
         cache = new HashMap<>();
     }
 
+    private String getOverWorldName(final String worldName){
+        return ((worldName.replace("_the_end","")).replace("_nether","")).replace("_shop","");
+    }
+
     /**
      * Gets items for world. Changes the inventory of player immediately.
      * @param player - player
@@ -62,7 +66,7 @@ public class Store {
 
         // Do not differentiate between world environments. Only the location is different
         String worldName = world.getName();
-        String overworldName = (world.getName().replace("_the_end", "")).replace("_nether", "");
+        String overworldName = getOverWorldName(world.getName());
 
         player.getInventory().setContents(store.getInventory(overworldName).toArray(new ItemStack[0]));
 
@@ -119,7 +123,7 @@ public class Store {
         InventoryStorage store = getInv(player);
         // Do not differentiate between world environments
         String worldName = world.getName();
-        String overworldName = (world.getName().replace("_the_end", "")).replace("_nether", "");
+        String overworldName = getOverWorldName(world.getName());
         // Copy the player's items to the store
         List<ItemStack> contents = Arrays.asList(player.getInventory().getContents());
         store.setInventory(overworldName, contents);
